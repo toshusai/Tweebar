@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta charset="utf-8">
+    <style>
+        @import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+        hmtl,
+        body {
+            font-family: 'Noto Sans Japanese';
+            position: relative;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 217, 255, 0.5);
+            /* -webkit-app-region: drag; */
+            font-weight: bold;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        #app {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            white-space: nowrap;
+            min-height: 51px;
+        }
+
+        .tweet {
+            position: relative;
+            display: inline-block;
+            padding-left: 8px;
+            padding-right: 8px;
+            min-height: 64px;
+            min-width: 200px;
+        }
+
+        .image {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            left: 0px;
+            top: 6px;
+            border: none;
+            border-radius: 24px;
+        }
+
+        .name {
+            display: inline;
+            position: absolute;
+            top: 6px;
+            left: 64px;
+            font-size: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+
+        .screen-name {
+            display: inline;
+            position: absolute;
+            top: 18px;
+            left: 64px;
+            font-size: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+
+        .text {
+            font-size: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0px;
+            height: 64px;
+            background-color: rgb(255, 74, 74);
+            transition: all 300ms 0s ease;
+        }
+
+        #close {
+            left: auto;
+            right: 0px;
+            width: 0px;
+        }
+
+        #close-on {
+            left: auto;
+            right: 0px;
+            width: 64px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div v-for="tweet in tweets" class="tweet">
+            <img class="image" v-bind:src="tweet.imageUrl" />
+            <div class="text">
+                {{tweet.text}}
+            </div>
+            <div class="name">
+                {{tweet.userName + " "}}
+            </div>
+            <div class="screen-name">
+                {{"@" + tweet.screenName}}
+            </div>
+        </div>
+        <div id="close" class="menu">Exit</div>
+    </div>
+    <script>
+        class Tweet {
+            constructor(userName, screenName, imageUrl, text) {
+                this.userName = userName;
+                this.screenName = screenName;
+                this.imageUrl = imageUrl;
+                this.text = text;
+            }
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tweets: [new Tweet("", "running...", "https://pbs.twimg.com/profile_images/970200070787276800/tqZy7jtc_bigger.jpg", "Please wait...")]
+            }
+        })
+
+
+        const electron = require("electron");
+        const ipcRenderer = electron.ipcRenderer;
+
+        // Receive
+        window.onload = function () {
+            var tweets = document.getElementsByClassName("tweet");
+            ipcRenderer.send("set-window-height", tweets[0].offsetHeight, window.screen.availHeight);
+            var bar = document.getElementById("app");
+            var close = document.getElementById("close");
+
+            bar.addEventListener("mouseover", function () {
+                close.id = "close-on";
+            });
+            bar.addEventListener("mouseout", function () {
+                close.id = "close";
+            });
+
+            close.addEventListener("mousedown", function () {
+                ipcRenderer.send("exit");
+            });
+
+
+            setInterval(function () {
+                if (!isMouseOver) {
+                    bar.scrollLeft += 1;
+                    var tweetElement = document.getElementsByClassName("tweet")[0];
+                    var targetRect = tweetElement.getBoundingClientRect();
+                    if (-targetRect.left > targetRect.width) {
+                        tweetElement.parentNode.removeChild(tweetElement);
+                        bar.scrollLeft -= targetRect.width;
+                    }
+                }
+            }, 20);
+        }
+
+        ipcRenderer.on("setTimeline", function (event, data) {
+            var tweets = Array();
+            JSON.parse(data).forEach(element => {
+                var tweet = new Tweet(element.user.name, element.user.screen_name, element.user.profile_image_url, element.text);
+                app.tweets.push(tweet);
+            });
+        });
+    </script>
+</body>
+
+</html>
