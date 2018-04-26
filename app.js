@@ -62,7 +62,6 @@ app.on('ready', () => {
         consumerKey: keys.consumerKey,
         consumerSecret: keys.consumerSecret,
         callback: "tweebar"
-
     });
 
     if (fsHelper.check(tokenPath)) {
@@ -72,7 +71,7 @@ app.on('ready', () => {
         initMainWindow(false, true);
         loadUrlMain(mainPath);
         setTimeout(() => {
-            //getTimeline();
+            getTimeline();
         }, 2000);
     } else {
         loadUrlMain(authPath);
