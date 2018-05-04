@@ -20,7 +20,9 @@ npm install ipc
 npm install node-twitter-api
 ```
 
-## Note
+## Usage
+Add your Consumer Key and Consumer Secret Key to `json/key.json`.
+
 All png images (img/*.png) are not pushed. To use this application, please obtain the image yourself. Check `src/css/main.css`. I am using the image of this site.
 - http://www.defaulticon.com/
 

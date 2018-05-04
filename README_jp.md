@@ -19,8 +19,9 @@ npm install ipc
 npm install node-twitter-api
 ```
 
-## 画像について
-画像については配布していないので、使いたい場合は各自で用意して、`img`フォルダに入れてください。 `src/css/main.css`に画像のリンクがあります。私はこちらのサイト（http://www.defaulticon.com）から画像をお借りしています。
+## 使い方
+Consumer KeyとConsumer Secret Keyを`json/key.json`に追加してください。  
+画像については上げていないので、使いたい場合は各自で用意して、`img`フォルダに入れてください。 `src/css/main.css`に画像のリンクがあります。私はこちらのサイト（http://www.defaulticon.com）から画像をお借りしています。
 
 ## 実行
 ```
