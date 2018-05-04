@@ -3,3 +3,4 @@
 /node_modules
 !.gitkeep
 !/top_image.png
+!json/key.json
