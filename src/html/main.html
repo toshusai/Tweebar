@@ -7,26 +7,40 @@
         Tweebar
     </title>
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="../js/main.js"></script>
+
 </head>
 
 <body>
-    <div id="app" class="container">
-        <div v-for="tweet in tweets" class="tweet">
-            <img class="image" v-bind:src="tweet.imageUrl" />
-            <div class="text">
-                {{tweet.text}}
-            </div>
-            <div class="name">
-                {{tweet.userName + " "}}
-            </div>
-            <div class="screen-name">
-                {{"@" + tweet.screenName}}
+
+    <div id="app">
+        <div id="menu-bar">
+            <input class="menu-icon" id="search-input" placeholder="Search" />
+            <button class="menu-icon" id="search-button" onclick="search(this)"></button>
+            <button class="menu-icon" id="timeline-button" onclick="backTimeline()"></button>
+            <div class="menu-icon" id="counter"></div>
+            <button class="menu-icon" id="minimize-button" onclick="minimize()"></button>
+            <button class="menu-icon" id="exit-button" onclick="exit()"></button>
+        </div>
+        <div id="scroll-bar">
+            <div v-for="tweet in tweets" class="tweet">
+                <img class="image" v-bind:src="tweet.imageUrl" />
+                <div class="text">
+                    {{tweet.text}}
+                </div>
+                <div class="name">
+                    {{tweet.userName + " "}}
+                </div>
+                <div class="screen-name">
+                    {{"@" + tweet.screenName}}
+                </div>
             </div>
         </div>
-        <div id="close" class="menu">Exit</div>
+        <div class="menu-icon" id="maximize-button" onclick="maximize()" hidden></div>
+
+
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

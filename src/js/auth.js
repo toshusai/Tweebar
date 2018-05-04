@@ -12,6 +12,7 @@ window.onload = function () {
         }
         if (webViewUrl.indexOf("https://api.twitter.com/oauth/tweebar") != -1) {
             var params = webViewUrl.split("?")[1];
+            
             params.split("&").forEach(element => {
                 var param = element.split("=");
                 if (param[0] === "oauth_token") {
