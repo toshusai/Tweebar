@@ -1,7 +1,7 @@
 # Tweebar
 ## 作業の邪魔をしないツイッタークライアント
 
-![Top image](top_image.png)
+![Top image](https://github.com/toshusai/Tweebar/top_image.png)
 
 デスクトップに常駐し、自動タイムラインが自動で流れるので、作業を邪魔することなくツイッターを見ることができます。
 自分のタイムラインの他に、検索機能がありますが、ツイート、いいね、リツイートはできません、作業に集中して下さい。

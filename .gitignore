@@ -2,3 +2,4 @@
 *.png
 /node_modules
 !.gitkeep
+!/top_image.png
