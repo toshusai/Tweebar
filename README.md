@@ -1,7 +1,7 @@
 # Tweebar
 ## A twitter client that does not interfere.
 
-![Top image](https://github.com/toshusai/Tweebar/top_image.png)
+![Top image](top_image.png)
 
 Note: This application is under development.  
 It resides on the desktop and the automatic timeline flows automatically so you can see Twitter without disturbing your work.
